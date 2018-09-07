@@ -5,11 +5,11 @@ OBJ = o
 OUTPUT_PATH = bin/
 SOURCE_PATH = src/
 BIN = bin/mbpfan
-CONF = mbpfan.conf
+CONF ?= mbpfan.conf
 DOC = README.md
 MAN = mbpfan.8.gz
 
-COPT = 
+COPT =
 CC ?= cc
 OBJFLAG = -o
 BINFLAG = -o
@@ -52,7 +52,7 @@ install: $(BIN)
 	install -d $(DESTDIR)/lib/systemd/system
 	install -d $(DESTDIR)/usr/share/doc/mbpfan
 	install $(BIN) $(DESTDIR)/usr/sbin
-	install -m644 $(CONF) $(DESTDIR)/etc
+	install -m644 $(CONF) $(DESTDIR)/etc/mbpfan.conf
 	install -m644 $(DOC) $(DESTDIR)/usr/share/doc/mbpfan
 	install -d $(DESTDIR)/usr/share/man/man8
 	install -m644 $(MAN) $(DESTDIR)/usr/share/man/man8

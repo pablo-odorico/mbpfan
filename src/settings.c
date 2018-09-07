@@ -88,7 +88,7 @@ static int get_section_from_str(const char *str, char *out_buf, unsigned int out
 static int get_key_value_from_str(const char *str, char *out_buf1, unsigned int out_buf1_n, char *out_buf2, unsigned int out_buf2_n);
 static int get_key_without_value_from_str(const char *str, char *out_buf, unsigned int out_buf_n);
 static int get_converted_value(const Settings *settings, const char *section, const char *key, ConvertMode mode, void *out);
-static int get_converted_tuple(const Settings *settings, const char *section, const char *key, char delim, ConvertMode mode, void *out, unsigned int n_out);
+static int get_converted_tuple(const Settings *settings, const char *section, const char *key, char delim, ConvertMode mode, void *out, unsigned int n_out, unsigned int* m_read);
 static Section * get_section(Section *sections, unsigned int n, const char *name);
 static void enum_map(const char *key, const char *value, const void *obj);
 
@@ -249,19 +249,19 @@ double settings_get_double(const Settings *settings, const char *section, const 
     return 0;
 }
 
-int settings_get_int_tuple(const Settings *settings, const char *section, const char *key, int *out, unsigned int n_out)
+int settings_get_int_tuple(const Settings *settings, const char *section, const char *key, int *out, unsigned int n_out, unsigned int* m_read)
 {
-    return get_converted_tuple(settings, section, key, ',', CONVERT_MODE_INT, out, n_out);
+    return get_converted_tuple(settings, section, key, ',', CONVERT_MODE_INT, out, n_out, m_read);
 }
 
-long settings_get_long_tuple(const Settings *settings, const char *section, const char *key, long *out, unsigned int n_out)
+long settings_get_long_tuple(const Settings *settings, const char *section, const char *key, long *out, unsigned int n_out, unsigned int* m_read)
 {
-    return get_converted_tuple(settings, section, key, ',', CONVERT_MODE_LONG, out, n_out);
+    return get_converted_tuple(settings, section, key, ',', CONVERT_MODE_LONG, out, n_out, m_read);
 }
 
-double settings_get_double_tuple(const Settings *settings, const char *section, const char *key, double *out, unsigned int n_out)
+double settings_get_double_tuple(const Settings *settings, const char *section, const char *key, double *out, unsigned int n_out, unsigned int* m_read)
 {
-    return get_converted_tuple(settings, section, key, ',', CONVERT_MODE_DOUBLE, out, n_out);
+    return get_converted_tuple(settings, section, key, ',', CONVERT_MODE_DOUBLE, out, n_out, m_read);
 }
 
 int settings_set(Settings *settings, const char *section, const char *key, const char *value)
@@ -793,7 +793,7 @@ static int get_converted_value(const Settings *settings, const char *section, co
  * assuming conversion is succesful. The function returns 1 if conversion
  * is succsessful and 0 if the convertion could not be carried out.
  */
-static int get_converted_tuple(const Settings *settings, const char *section, const char *key, char delim, ConvertMode mode, void *out, unsigned int n_out)
+static int get_converted_tuple(const Settings *settings, const char *section, const char *key, char delim, ConvertMode mode, void *out, unsigned int n_out, unsigned int* m_read)
 {
     unsigned int count;
     const char *token;
@@ -838,6 +838,8 @@ static int get_converted_tuple(const Settings *settings, const char *section, co
 
         count++;
     }
+
+    if (m_read != NULL) *m_read = count;
 
     return 1;
 }

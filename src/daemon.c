@@ -79,10 +79,11 @@ static void cleanup_and_exit(int exit_code)
 {
 	delete_pid();
 	set_fans_auto(fans);
-	
+
 	struct s_fans *next_fan;
 	while (fans != NULL) {
 		next_fan = fans->next;
+		free(fans->name);
 		if (fans->file != NULL) {
 			fclose(fans->file);
 		}

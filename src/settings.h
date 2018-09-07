@@ -215,10 +215,12 @@ double settings_get_double(const Settings *settings, const char *section, const 
  *
  * n_out: The maximum number of elements the output buffer can hold.
  *
+ * n_read: If not null the actual number of elements read will be written here.
+ *
  * Return value: 1 if the entire tuple was copied into the output buffer,
  * 0 otherwise.
  */
-int settings_get_int_tuple(const Settings *settings, const char *section, const char *key, int *out, unsigned int n_out);
+int settings_get_int_tuple(const Settings *settings, const char *section, const char *key, int *out, unsigned int n_out,  unsigned int* m_read);
 
 /*
  * Returns the long tuple associated with the supplied key in the
@@ -238,10 +240,12 @@ int settings_get_int_tuple(const Settings *settings, const char *section, const 
  *
  * n_out: The maximum number of elements the output buffer can hold.
  *
+ * n_read: If not null the actual number of elements read will be written here.
+ *
  * Return value: 1 if the entire tuple was copied into the output buffer,
  * 0 otherwise.
  */
-long settings_get_long_tuple(const Settings *settings, const char *section, const char *key, long *out, unsigned int n_out);
+long settings_get_long_tuple(const Settings *settings, const char *section, const char *key, long *out, unsigned int n_out, unsigned int* m_read);
 
 /*
  * Returns the double tuple associated with the supplied key in the
@@ -261,10 +265,12 @@ long settings_get_long_tuple(const Settings *settings, const char *section, cons
  *
  * n_out: The maximum number of elements the output buffer can hold.
  *
+ * n_read: If not null the actual number of elements read will be written here.
+ *
  * Return value: 1 if the entire tuple was copied into the output buffer,
  * 0 otherwise.
  */
-double settings_get_double_tuple(const Settings *settings, const char *section, const char *key, double *out, unsigned int n_out);
+double settings_get_double_tuple(const Settings *settings, const char *section, const char *key, double *out, unsigned int n_out, unsigned int* m_read);
 
 /*
  * Associates a value with the supplied key in the provided section.

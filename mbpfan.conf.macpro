@@ -1,0 +1,13 @@
+[general]
+min_fan_speed = 600
+max_fan_speed = 5200
+low_temp = 65
+high_temp = 73
+max_temp = 90
+polling_interval = 5
+
+fan_list = INTAKE,EXHAUST,BOOSTA,BOOSTB,PS
+fan_ratios = 1.0,1.0,1.8,1.8,0.7
+fan_min_speeds = 600,600,800,800,1000
+fan_max_speeds = 2500,2500,5000,5000,1500
+pid_values = 280,5,100

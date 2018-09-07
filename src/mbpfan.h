@@ -17,6 +17,11 @@
 #ifndef _MBPFAN_H_
 #define _MBPFAN_H_
 
+// Max number of supported fans
+#define MAX_FANS 10
+// Max number of fans to search in
+#define MAX_SEARCH_FANS 16
+
 /** Basic fan speed parameters
  */
 extern int min_fan_speed;
@@ -34,6 +39,12 @@ extern int max_temp;
  *  Default value was 10 (seconds)
  */
 extern int polling_interval;
+
+// Comma-delmited list of fan names, as set in the settings
+extern char* fan_list;
+extern float fan_ratios[MAX_FANS];
+extern int fan_min_speeds[MAX_FANS];
+extern int fan_max_speeds[MAX_FANS];
 
 /** Represents a Temperature sensor
  */
@@ -96,7 +107,7 @@ void set_fan_speed(t_fans* fans, int speed);
 /**
  *  Return average CPU temp in degrees (ceiling)
  */
-unsigned short get_temp(t_sensors* sensors);
+float get_temp(t_sensors* sensors);
 
 /**
  * Main Program
